@@ -52,7 +52,7 @@ public function common_mimic_endpoints()
       $wdb->sql_close();
       
       // the flow here should empty the usermeta db row into WP: but it is done in WP at first loop, just after the phpBB cURL response 
-      // (when first user deletion (even if there are more than one deleted) fire in WP). It will nullify the token and any other request
+      // (when first user deletion (even if there are more than one deleted) fire in WP). It will nullify the token so any other request
       // so that in true, the request time check is not so useful here. 
       // Anyway the update to an empty value of the usermeta row just after values are retrieved here, would be the secure way. 
       // And it would require just a delete query more. More security layers can be easily added.
