@@ -1,4 +1,5 @@
-  public function common_mimic_endpoints()
+<?php
+public function common_mimic_endpoints()
   {
     // to understand from where values are coming, how have been generated, and how the logic work, see wp_w3all.php file
     // wp/wp-content/plugins/wp-w3all-phpbb-integration/wp_w3all.php
