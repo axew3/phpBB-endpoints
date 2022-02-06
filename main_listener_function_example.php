@@ -77,7 +77,6 @@ public function common_mimic_endpoints()
 
       $emails = substr($emails, 0, -1);
       $elist = 'LOWER(user_email) IN('.$emails.')';
-file_put_contents('C:\DATA_ALL\Edit3.txt', $emails);
 
       if (!function_exists('user_delete')) // include only if or get error
       {
