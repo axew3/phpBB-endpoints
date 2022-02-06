@@ -98,16 +98,18 @@ public function common_mimic_endpoints()
         */
        }
 
-     $sql = "SELECT U.user_id
+      $sql = "SELECT U.user_id
       FROM " . USERS_TABLE . "
       as U WHERE $elist";
       $res = $this->db->sql_query($sql);
-     while ($row = $this->db->sql_fetchrow($res))
-     {
-      user_delete($delmode, $row['user_id'], $retain_username = true); // delete user
-     }
-
-     $this->db->sql_freeresult($res);
+      if(!empty($res))
+      {
+       while ($row = $this->db->sql_fetchrow($res))
+        {
+         user_delete($delmode, $row['user_id'], $retain_username = true); // delete user
+        }
+      }
+       $this->db->sql_freeresult($res);
     }
-   }
   }
+ }
