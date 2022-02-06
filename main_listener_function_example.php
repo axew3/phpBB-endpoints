@@ -97,7 +97,7 @@ public function common_mimic_endpoints()
       $res = $this->db->sql_query($sql);
      while ($row = $this->db->sql_fetchrow($res))
      {
-      //user_delete($delmode, $row['user_id'], $retain_username = true); // delete user
+      user_delete($delmode, $row['user_id'], $retain_username = true); // delete user
      }
 
      $this->db->sql_freeresult($res);
