@@ -24,7 +24,7 @@ public function common_mimic_endpoints()
     $w3allastoken = str_replace(chr(0), '', $w3allastoken);
 
       if( !empty($phpBB_function_endpoint) && ! password_verify($tk, $w3allastoken) )
-       { // stop any going on here, something goes wrong (and also a antibruteforce could be easily added!)
+       { // stop any going on, something goes wrong (an antibruteforce could be easily added)
          // but it is may not necessary, since w3all_usersdata_deleted_in_phpbb_exec() function into wp_w3all.php, empty the value of the relate user's meta db table, just after the first user's deletion in WP happen (so just after phpBB received and processed the $_POST here)
          return;
         }
