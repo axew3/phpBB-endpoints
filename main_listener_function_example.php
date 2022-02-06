@@ -2,7 +2,7 @@
 public function common_mimic_endpoints()
   {
     // to understand from where values are coming, how have been generated, and how the logic work, see wp_w3all.php file
-    // wp/wp-content/plugins/wp-w3all-phpbb-integration/wp_w3all.php
+    // wp/wp-content/plugins/wp-w3all-phpbb-integration/wp_w3all.php vers. 2.5.5>
     // add_action( 'delete_user', 'w3all_usersdata_predelete_in_phpbb_exec', 10, 3);
     // add_action( 'deleted_user', 'w3all_usersdata_deleted_in_phpbb_exec', 10, 3);
 
