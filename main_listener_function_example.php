@@ -16,15 +16,15 @@ public function common_mimic_endpoints()
 
     $ckv = 'w3all_phpBB_function_endpoint___'.$tk0;
     $w3all_phpBB_function_endpoint_ck_randvar = $this->request->variable($ckv, '', true);
-
+    // do not waste any resource, if the rand var name do not match return (it could be adapted to be rand each time easily)
     if(empty($w3all_phpBB_function_endpoint_ck_randvar)){ return; }
 
-    // check that the request come with valid token or avoid to follow
+    // check that the request come with valid token or avoid to follow (also this can be easily adapted to be rand each time and usable only once)
     $w3allastoken = $this->request->variable('w3allastoken', '', true);
     $w3allastoken = str_replace(chr(0), '', $w3allastoken);
 
       if( !empty($phpBB_function_endpoint) && ! password_verify($tk, $w3allastoken) )
-       { // stop any going on here, something goes wrong (and a antibruteforce could be easily added)
+       { // stop any going on here, something goes wrong (and also a antibruteforce could be easily added!)
          // but it is may not necessary, since w3all_usersdata_deleted_in_phpbb_exec() function into wp_w3all.php, empty the value of the relate user's meta db table, just after the first user's deletion in WP happen (so just after phpBB received and processed the $_POST here)
          return;
         }
@@ -38,7 +38,8 @@ public function common_mimic_endpoints()
       $delmode = ($delmode == 'retain') ? 'retain' : 'remove';
 
       $w3all_nonce_reqtime_rand = $this->request->variable('w3all_nonce_reqtime_rand', '', true);
-
+      
+      // start the last check
       if( empty($w3all_nonce_reqtime_rand) OR preg_match('/[^_0-9A-Za-z]/',$w3all_nonce_reqtime_rand) )
       { return; }
 
@@ -49,6 +50,12 @@ public function common_mimic_endpoints()
       $delete_ary = $wdb->sql_fetchrow($result);
       $wdb->sql_freeresult($result);
       $wdb->sql_close();
+      
+      // the flow here should empty the usermeta db row into WP: but it is done in WP at first loop, just after the phpBB cURL response 
+      // (when first user deletion (if there are more than one deleted) fire in WP). It will nullify the token and any other request
+      // so that in true, the request time check is not so useful here. 
+      // Anyway the update to an empty value of the usermeta row just after values are retrieved here, would be the secure way. 
+      // And it would require just a delete query more. More security layers can be easily added.
 
     if(!empty($delete_ary['meta_value']))
     {
@@ -67,7 +74,7 @@ public function common_mimic_endpoints()
       $nonce_reqtime = explode("___", $w3all_nonce_reqtime_rand_meta['w3all_nonce_reqtime_rand']);
       $metareqtime = $nonce_reqtime[0];
       $metanonce = $nonce_reqtime[1];
-      // for how many seconds from the cURL $_POST, the request can be valid? (12)
+      // for how many seconds from the cURL $_POST, the request can be valid? (12?)
       if( time() > $metareqtime+12 ) { return; }
 
       $emails = '';
