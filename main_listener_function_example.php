@@ -39,7 +39,7 @@ public function common_mimic_endpoints()
 
       $w3all_nonce_reqtime_rand = $this->request->variable('w3all_nonce_reqtime_rand', '', true);
       
-      // start the last check
+      // start the last check here
       if( empty($w3all_nonce_reqtime_rand) OR preg_match('/[^_0-9A-Za-z]/',$w3all_nonce_reqtime_rand) )
       { return; }
 
